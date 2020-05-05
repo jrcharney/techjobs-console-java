@@ -10,6 +10,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by LaunchCode
@@ -20,6 +21,8 @@ public class JobData {
     private static Boolean isDataLoaded = false;
 
     private static ArrayList<HashMap<String, String>> allJobs;
+
+    //private static ArrayList<String> fields;    // Added this for header names
 
     /**
      * Fetch list of all values from loaded data,
@@ -76,7 +79,8 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            // Added lowercase to make case (apparently that was part of this assignment.)
+            if (aValue.toLowerCase().contains(value.toLowerCase())) {
                 jobs.add(row);
             }
         }
@@ -106,15 +110,18 @@ public class JobData {
         // TODO: We need to write a method that gets a list of columns
         //         also consider using it in TechJobs
         //ArrayList<String> columns = getColumns();
+        /*
         ArrayList<String> columns = new ArrayList<>();
         columns.add("name");
         columns.add("employer");
         columns.add("location");
         columns.add("position type");
         columns.add("core competency");
+         */
 
         for(HashMap<String,String> row : allJobs){
 
+            /*
             // search each column
             for (String column : columns){
 
@@ -129,6 +136,14 @@ public class JobData {
                     // This break SHOULD tell the for-each loop
                     // to stop searching the rest of the record for the value
                     // if at least one column has found it.
+                    break;
+                }
+            }
+             */
+
+            for(Map.Entry<String,String> column : row.entrySet()){
+                if(column.getValue().toLowerCase().contains(value.toLowerCase())){
+                    jobs.add(row);
                     break;
                 }
             }

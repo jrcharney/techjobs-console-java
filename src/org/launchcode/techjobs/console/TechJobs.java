@@ -2,6 +2,7 @@ package org.launchcode.techjobs.console;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -118,6 +119,8 @@ public class TechJobs {
         //  Do we have a method tho read that line?
         //ArrayList<String>
         //String[] keys = ["name","employer","location","position type","core competency"];
+
+        /*
         ArrayList<String> keys = new ArrayList<>();
         keys.add("name");
         keys.add("employer");
@@ -125,15 +128,26 @@ public class TechJobs {
         keys.add("position type");
         keys.add("core competency");
 
+         */
+
         if(someJobs.size() == 0){
             System.out.println("Sorry, no jobs match.");
         } else {
             //System.out.println("*****");      // My plan was something a little more conservative.
             for (HashMap<String, String> job : someJobs) {
                 System.out.println("*****");    // This needs to be at the beginning apparently.
-                for (String key : keys) {
+                // for (Map.Entry<String, String> info : jobs.entrySet())
+                // info.getKey() info.getValue()
+                /*
+                for (String key : keys) {        //job.entrySet()
                     System.out.println(key + ": " + job.get(key));
                 }
+                 */
+
+                for(Map.Entry<String, String> info : job.entrySet()){
+                    System.out.println(info.getKey() + ": " + info.getValue());
+                }
+
                 System.out.println("*****");
                 System.out.println();   // add an extra newline
             }
