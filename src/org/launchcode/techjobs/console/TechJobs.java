@@ -61,7 +61,8 @@ public class TechJobs {
                 String searchTerm = in.nextLine();
 
                 if (searchField.equals("all")) {
-                    System.out.println("Search all fields not yet implemented.");
+                    //System.out.println("Search all fields not yet implemented.");
+                    printJobs(JobData.findByValue(searchTerm));
                 } else {
                     printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
                 }
@@ -111,6 +112,31 @@ public class TechJobs {
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
 
-        System.out.println("printJobs is not implemented yet");
+        //System.out.println("printJobs is not implemented yet");
+        // I think this part may have been done wrong. What if we need to FIND the fields on line 1 of job-data.csv?
+        //      name,employer,location,position type,core competency
+        //  Do we have a method tho read that line?
+        //ArrayList<String>
+        //String[] keys = ["name","employer","location","position type","core competency"];
+        ArrayList<String> keys = new ArrayList<>();
+        keys.add("name");
+        keys.add("employer");
+        keys.add("location");
+        keys.add("position type");
+        keys.add("core competency");
+
+        if(someJobs.size() == 0){
+            System.out.println("Sorry, no jobs match.");
+        } else {
+            //System.out.println("*****");      // My plan was something a little more conservative.
+            for (HashMap<String, String> job : someJobs) {
+                System.out.println("*****");    // This needs to be at the beginning apparently.
+                for (String key : keys) {
+                    System.out.println(key + ": " + job.get(key));
+                }
+                System.out.println("*****");
+                System.out.println();   // add an extra newline
+            }
+        }
     }
 }

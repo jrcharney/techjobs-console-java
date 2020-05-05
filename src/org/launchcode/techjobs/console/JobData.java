@@ -85,6 +85,58 @@ public class JobData {
     }
 
     /**
+     * Returns results of search the jobs data by value, using inclusion of the search term.
+     * @param value of the field to search for
+     * @return List of all jobs matching the criteria
+     * Requirements:
+     * 1. Can not find duplicate jobs.
+     *      (If a listing has "position type" "Web - Front End" and "name" "Front end web dev",
+     *      then searching for "web" should not include the listing twice.)
+     *      someJobs = findAll(value)
+     * 2. Write your code in a way that if a new column is added,
+     *      your code will search the new column as well.
+     * 3. This searches ALL fields rather than one field
+     */
+    public static ArrayList<HashMap<String,String>> findByValue(String value){
+        // May as well put this BEFORE loadData since every public method is ahead of it too
+        loadData();
+
+        ArrayList<HashMap<String,String>> jobs = new ArrayList<>();
+
+        // TODO: We need to write a method that gets a list of columns
+        //         also consider using it in TechJobs
+        //ArrayList<String> columns = getColumns();
+        ArrayList<String> columns = new ArrayList<>();
+        columns.add("name");
+        columns.add("employer");
+        columns.add("location");
+        columns.add("position type");
+        columns.add("core competency");
+
+        for(HashMap<String,String> row : allJobs){
+
+            // search each column
+            for (String column : columns){
+
+                String aValue = row.get(column);
+
+                // Case sensitive: aValue.contains(value);
+                // Case insensitive: aValue.toLowerCase().contains(value.toLowerCase())
+
+                if(aValue.toLowerCase().contains(value.toLowerCase())){
+                    // Add this row to our search results.
+                    jobs.add(row);
+                    // This break SHOULD tell the for-each loop
+                    // to stop searching the rest of the record for the value
+                    // if at least one column has found it.
+                    break;
+                }
+            }
+        }
+        return jobs;
+    }
+
+    /**
      * Read in data from a CSV file and store it in a list
      */
     private static void loadData() {
